@@ -8,11 +8,11 @@ A simple vending machine program written in Node.js
 
 ## Features
 
-Menu-driven interface
-Cash and card payment options
-Multiple beverage choices
-Balance tracking for cash payments
-Simulated card payment failures (10% chance)
+- Menu-driven interface
+- Cash and card payment options
+- Multiple beverage choices
+- Balance tracking for cash payments
+- Simulated card payment failures (10% chance)
 
 ## Flow Diagram
 
@@ -54,6 +54,6 @@ graph TD
 
 ## How to Run
 ```bash
-cd $PROJECT_DIR
+cd <PROJECT_DIR>
 node main.js
 ```
