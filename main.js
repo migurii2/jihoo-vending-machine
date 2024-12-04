@@ -6,9 +6,9 @@ const rl = readline.createInterface({
 });
 
 const beverages = {
-  '1': { name: 'Coke', price: 1100 },
-  '2': { name: 'Water', price: 600 },
-  '3': { name: 'Coffee', price: 700 }
+  '2': { name: 'Coke', price: 1100 },
+  '3': { name: 'Water', price: 600 },
+  '4': { name: 'Coffee', price: 700 }
 };
 
 const validCashDenominations = [100, 500, 1000, 5000, 10000];
@@ -17,10 +17,10 @@ let balance = 0;
 
 function displayVendingMachineMenu() {
   console.log('\n=== Vending Machine Menu ===');
+  console.log('1. Payment');
   for (let key in beverages) {
     console.log(`${key}. ${beverages[key].name} - ${beverages[key].price} won`);
   }
-  console.log('4. Payment');
   console.log('5. Exit');
 }
 
@@ -39,21 +39,19 @@ function insertCash() {
   });
 }
 
-function selectBeverage() {
-  rl.question('Select a beverage (enter number): ', (choice) => {
-    if (beverages[choice]) {
-      if (balance >= beverages[choice].price) {
-        balance -= beverages[choice].price;
-        console.log(`Purchased ${beverages[choice].name}. Remaining balance: ${balance} won`);
-      } else {
-        console.log('Insufficient balance.');
-      }
+function selectBeverage(choice) {
+  if (beverages[choice]) {
+    if (balance >= beverages[choice].price) {
+      balance -= beverages[choice].price;
+      console.log(`Purchased ${beverages[choice].name}. Remaining balance: ${balance} won`);
     } else {
-      console.log('Invalid selection.');
+      console.log('Insufficient balance.');
     }
-    displayVendingMachineMenu();
-    processUserInput();
-  });
+  } else {
+    console.log('Invalid selection.');
+  }
+  displayVendingMachineMenu();
+  processUserInput();
 }
 
 function processCardPayment() {
@@ -77,11 +75,6 @@ function processUserInput() {
   rl.question('Please select: ', (choice) => {
     switch(choice) {
       case '1':
-      case '2':
-      case '3':
-        selectBeverage();
-        break;
-      case '4':
         rl.question('Select payment method (1: Cash, 2: Card): ', (paymentMethod) => {
           if (paymentMethod === '1') {
             insertCash();
@@ -93,6 +86,11 @@ function processUserInput() {
             processUserInput();
           }
         });
+        break;
+      case '2':
+      case '3':
+      case '4':
+        selectBeverage(choice);
         break;
       case '5':
         console.log(`Exiting program. Change returned: ${balance} won`);
