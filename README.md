@@ -22,29 +22,29 @@ Written in [mermaid](https://github.com/mermaid-js/mermaid) syntax.
 graph TD
     A[Start] --> B[Display Vending Machine Menu]
     B --> C{User Selection}
-    C -->|1-3| D[Select Beverage]
-    C -->|4| E{Choose Payment Method}
+    C -->|1| D{Choose Payment Method}
+    C -->|2-4| E[Select Beverage]
     C -->|5| F[Exit Program]
     
-    D --> G{Sufficient Balance?}
-    G -->|Yes| H[Purchase Beverage]
-    G -->|No| I[Insufficient Balance Message]
-    H --> B
-    I --> B
+    D -->|Cash| G[Insert Cash]
+    D -->|Card| H[Process Card Payment]
     
-    E -->|Cash| J[Insert Cash]
-    E -->|Card| K[Process Card Payment]
+    G --> I{Valid Amount?}
+    I -->|Yes| J[Update Balance]
+    I -->|No| K[Invalid Amount Message]
+    J --> B
+    K --> G
     
-    J --> L{Valid Amount?}
-    L -->|Yes| M[Update Balance]
-    L -->|No| N[Invalid Amount Message]
-    M --> B
-    N --> J
+    H --> L[Select Beverage]
+    L --> M{Random 10% Chance}
+    M -->|90%| N[Successful Card Purchase]
+    M -->|10%| O[Insufficient Card Balance]
+    N --> B
+    O --> B
     
-    K --> O[Select Beverage]
-    O --> P{Random 10% Chance}
-    P -->|90%| Q[Successful Card Purchase]
-    P -->|10%| R[Insufficient Card Balance]
+    E --> P{Sufficient Balance?}
+    P -->|Yes| Q[Purchase Beverage]
+    P -->|No| R[Insufficient Balance Message]
     Q --> B
     R --> B
     
